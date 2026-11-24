@@ -1,14 +1,12 @@
-# Komplexe Bilder — crop + sticky header update
+# Komplexe Bilder — Figma-exact header correction
 
-Only the Komplexe Bilder page changes. Replace these files in the existing repository, keeping the existing assets folder and all other project files unchanged:
+Only `projects/shahed.html`, `projects/shahed-v10.css` and `projects/shahed-v10.js` are included. Copy the `projects` folder into your existing portfolio repository and replace the same-named files. Keep the existing `/assets` files unchanged.
 
-- `projects/shahed.html`
-- `projects/shahed-v10.css`
-- `projects/shahed-v10.js`
+- Correct Geist Mono font on the sticky header (24px/31px weight 600 for the name).
+- Correct cross's text bounding box and offset from Figma (48px/62px, y=-17px within the right 524px cell).
+- The 4px black top strip remains attached to the sticky header when scrolling. No new black strip below the header.
+- The hero starts at y=39 as specified in Figma; the existing crop correction is preserved.
+- Updated latest Figma export: the 37px title bar is black with white text (Cell_01 overrides underlying white Rectangle).
+- No homepage or other project pages are modified.
 
-Changes:
-- Adjusted the first image crop to the Figma screenshot with an approximately 278px leftward and 285px downward shift (1440px design coordinates).
-- Kept original image proportions and 1440px artboard composition.
-- The top bar with the author name and × now sticks to the viewport during scrolling. It is outside the scaled canvas so `position: sticky` works correctly.
-
-Open the updated site through VS Code or push with GitHub Desktop (Commit → Push origin). Refresh with Cmd+Shift+R.
+The header sticks to the TOP of the viewport, including its 4px black top band.

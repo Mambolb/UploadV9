@@ -1,7 +1,7 @@
 /* Komplexe Bilder — faithful 1440 × 7184 Figma positioning.
    The original 1440px composition is uniformly scaled to the viewport width.
    No other portfolio page or shared stylesheet is changed. */
-:root { color-scheme: dark; }
+:root { color-scheme: dark; font-family: 'Geist Mono', monospace; }
 *, *::before, *::after { box-sizing: border-box; }
 html { margin: 0; background: #000; scrollbar-width: none; }
 html::-webkit-scrollbar { display: none; }
@@ -15,13 +15,52 @@ body { margin: 0; padding: 0; overflow-x: hidden; background: #000; color: #fff;
 /* Calibrated against the user-provided 1× Figma screenshot: identical image scale, shifted −278px horizontally and +285px vertically relative to the previous centred crop. */
 .hero-photo { left: 0; top: 39px; width: 1742px; height: 743px; }
 .hero-photo img { object-position: center 30.13%; transform: translateX(-278px); }
-/* Outside the scaled artboard so that native position:sticky follows the viewport, not the transformed canvas. */
-.top-header { position: sticky; top: 0; margin-top: calc(4px * var(--page-scale)); left: 0; width: 100%; height: calc(35px * var(--page-scale)); background: #fff; color: #000; z-index: 50; }
-.header-name { position: absolute; left: 0; top: 0; width: calc(524px * var(--page-scale)); height: 100%; padding: calc(4px * var(--page-scale)) calc(8px * var(--page-scale)); display: flex; align-items: center; font-size: calc(24px * var(--page-scale)); line-height: 1.29166667; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
-.header-close { position: absolute; right: 0; top: 0; width: calc(524px * var(--page-scale)); height: 100%; padding: 0 calc(8px * var(--page-scale)); display: flex; align-items: center; justify-content: flex-end; background: #fff; color: #000; text-decoration: none; font-size: calc(48px * var(--page-scale)); font-weight: 600; line-height: 1.29166667; text-transform: uppercase; cursor: pointer; }
+/* Sticky shell keeps the original Figma y=0–4 black band attached to the 35px white bar.
+   Nothing is inserted between the white bar and hero image (y=39). */
+.project-sticky-region {
+  position: sticky; top: 0; z-index: 50; width: 100%;
+  height: calc(39px * var(--page-scale));
+  padding-top: calc(4px * var(--page-scale));
+  background: #000;
+}
+.top-header {
+  position: relative; top: 0; left: 0; margin: 0; padding: 0;
+  width: 100%; height: calc(35px * var(--page-scale));
+  background: #fff; color: #000; overflow: hidden;
+  font-family: 'Geist Mono', monospace;
+}
+/* Figma left Cell_01: x=0, y=4, w=524, h=35; text=24/31, weight 600, padding 4px 8px. */
+.header-name {
+  position: absolute; left: 0; top: 0;
+  width: calc(524px * var(--page-scale)); height: 100%;
+  padding: calc(4px * var(--page-scale)) calc(8px * var(--page-scale));
+  display: flex; align-items: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: calc(24px * var(--page-scale)); line-height: calc(31px * var(--page-scale));
+  font-weight: 600; text-transform: uppercase; white-space: nowrap;
+}
+/* Figma right Cell_01: x=916, y=4, w=524, h=35.
+   Text layer for ×: relative x=8, y=-17, w=508, h=62, 48/62px, right-aligned.
+   Do not use flex-centering or a system font: that shifted the cross in the previous patch. */
+.header-close {
+  display: block; position: absolute; right: 0; top: 0;
+  width: calc(524px * var(--page-scale)); height: 100%;
+  padding: 0; margin: 0; background: #fff; color: #000;
+  font-family: 'Geist Mono', monospace;
+  text-decoration: none; cursor: pointer;
+}
+.header-close-mark {
+  display: block; position: absolute;
+  top: calc(-17px * var(--page-scale)); left: calc(8px * var(--page-scale));
+  width: calc(508px * var(--page-scale)); height: calc(62px * var(--page-scale));
+  font-family: 'Geist Mono', monospace;
+  font-size: calc(48px * var(--page-scale));
+  font-weight: 600; line-height: calc(62px * var(--page-scale));
+  text-align: right; text-transform: uppercase;
+}
 .header-close:focus-visible { outline: 2px solid #000; outline-offset: -2px; }
-.work-title { position: absolute; left: 0; top: 782px; width: 1440px; height: 37px; background: #fff; color: #000; display: flex; align-items: center; padding: 4px 8px; z-index: 2; }
-.work-title h1 { margin: 0; padding: 0; width: 1162px; height: 31px; color: #000; font: 600 24px/31px 'Geist Mono', monospace; text-transform: uppercase; white-space: nowrap; }
+.work-title { position: absolute; left: 0; top: 782px; width: 1440px; height: 37px; background: #000; color: #fff; display: flex; align-items: center; padding: 4px 8px; z-index: 2; }
+.work-title h1 { margin: 0; padding: 0; width: 1162px; height: 31px; color: #fff; font: 600 24px/31px 'Geist Mono', monospace; text-transform: uppercase; white-space: nowrap; }
 .description { position: absolute; left: 8px; top: 846px; width: 646px; min-height: 319px; padding: 4px 0; color: #fff; }
 .description p { width: 646px; min-height: 304px; margin: 0; padding: 0; color: inherit; font: 400 12px/16px 'Geist Mono', monospace; white-space: pre-line; overflow-wrap: break-word; }
 .figure-000 { left: 0; top: 1224px; width: 1440.1px; height: 1021px; }
