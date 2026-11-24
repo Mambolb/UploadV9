@@ -1,0 +1,28 @@
+/* Komplexe Bilder — faithful 1440 × 7184 Figma positioning.
+   The original 1440px composition is uniformly scaled to the viewport width.
+   No other portfolio page or shared stylesheet is changed. */
+:root { color-scheme: dark; }
+*, *::before, *::after { box-sizing: border-box; }
+html { margin: 0; background: #000; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body { margin: 0; padding: 0; overflow-x: hidden; background: #000; color: #fff; }
+.project-wrap { position: relative; width: 100%; min-height: 7184px; overflow: hidden; background: #000; }
+.project-artboard { position: absolute; width: 1440px; height: 7184px; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; font-family: 'Geist Mono', monospace; }
+.background { position: absolute; width: 1440px; height: 7346px; top: 0; left: 0; background: #000; }
+.photo { position: absolute; margin: 0; padding: 0; overflow: hidden; background: #000; }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center; max-width: none; border: 0; }
+/* 005 is a Figma image fill, not an <img> at its native portrait aspect ratio. */
+.hero-photo { left: 0; top: 39px; width: 1742px; height: 743px; }
+.top-header { position: absolute; left: 0; top: 4px; width: 1440px; height: 35px; background: #fff; color: #000; z-index: 5; }
+.header-name { position: absolute; left: 0; top: 0; width: 524px; height: 35px; padding: 4px 8px; display: flex; align-items: center; font-size: 24px; line-height: 31px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+.header-close { position: absolute; right: 0; top: 0; width: 524px; height: 35px; padding: 0 8px; display: flex; align-items: center; justify-content: flex-end; background: #fff; color: #000; text-decoration: none; font-size: 48px; font-weight: 600; line-height: 62px; text-transform: uppercase; cursor: pointer; }
+.header-close:focus-visible { outline: 2px solid #000; outline-offset: -2px; }
+.work-title { position: absolute; left: 0; top: 782px; width: 1440px; height: 37px; background: #fff; color: #000; display: flex; align-items: center; padding: 4px 8px; z-index: 2; }
+.work-title h1 { margin: 0; padding: 0; width: 1162px; height: 31px; color: #000; font: 600 24px/31px 'Geist Mono', monospace; text-transform: uppercase; white-space: nowrap; }
+.description { position: absolute; left: 8px; top: 846px; width: 646px; min-height: 319px; padding: 4px 0; color: #fff; }
+.description p { width: 646px; min-height: 304px; margin: 0; padding: 0; color: inherit; font: 400 12px/16px 'Geist Mono', monospace; white-space: pre-line; overflow-wrap: break-word; }
+.figure-000 { left: 0; top: 1224px; width: 1440.1px; height: 1021px; }
+.figure-0000 { left: 0; top: 2245px; width: 1440.1px; height: 1021px; }
+.figure-006 { left: -2px; top: 3266px; width: 1447px; height: 965px; }
+.figure-002 { left: -2px; top: 4231px; width: 1440px; height: 1152px; }
+.figure-001 { left: -2px; top: 5381px; width: 1442px; height: 1803px; }
