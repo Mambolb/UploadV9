@@ -10,6 +10,7 @@
   function fit() {
     const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
     const scale = viewportWidth / WIDTH;
+    wrap.style.setProperty('--page-scale', scale);
     board.style.transform = `scale(${scale})`;
     wrap.style.height = `${HEIGHT * scale}px`;
     wrap.style.minHeight = `${HEIGHT * scale}px`;

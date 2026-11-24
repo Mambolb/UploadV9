@@ -6,16 +6,19 @@
 html { margin: 0; background: #000; scrollbar-width: none; }
 html::-webkit-scrollbar { display: none; }
 body { margin: 0; padding: 0; overflow-x: hidden; background: #000; color: #fff; }
-.project-wrap { position: relative; width: 100%; min-height: 7184px; overflow: hidden; background: #000; }
+.project-wrap { position: relative; width: 100%; min-height: 7184px; overflow: visible; background: #000; --page-scale: 1; }
 .project-artboard { position: absolute; width: 1440px; height: 7184px; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; font-family: 'Geist Mono', monospace; }
 .background { position: absolute; width: 1440px; height: 7346px; top: 0; left: 0; background: #000; }
 .photo { position: absolute; margin: 0; padding: 0; overflow: hidden; background: #000; }
 .photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center; max-width: none; border: 0; }
 /* 005 is a Figma image fill, not an <img> at its native portrait aspect ratio. */
+/* Calibrated against the user-provided 1× Figma screenshot: identical image scale, shifted −278px horizontally and +285px vertically relative to the previous centred crop. */
 .hero-photo { left: 0; top: 39px; width: 1742px; height: 743px; }
-.top-header { position: absolute; left: 0; top: 4px; width: 1440px; height: 35px; background: #fff; color: #000; z-index: 5; }
-.header-name { position: absolute; left: 0; top: 0; width: 524px; height: 35px; padding: 4px 8px; display: flex; align-items: center; font-size: 24px; line-height: 31px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
-.header-close { position: absolute; right: 0; top: 0; width: 524px; height: 35px; padding: 0 8px; display: flex; align-items: center; justify-content: flex-end; background: #fff; color: #000; text-decoration: none; font-size: 48px; font-weight: 600; line-height: 62px; text-transform: uppercase; cursor: pointer; }
+.hero-photo img { object-position: center 30.13%; transform: translateX(-278px); }
+/* Outside the scaled artboard so that native position:sticky follows the viewport, not the transformed canvas. */
+.top-header { position: sticky; top: 0; margin-top: calc(4px * var(--page-scale)); left: 0; width: 100%; height: calc(35px * var(--page-scale)); background: #fff; color: #000; z-index: 50; }
+.header-name { position: absolute; left: 0; top: 0; width: calc(524px * var(--page-scale)); height: 100%; padding: calc(4px * var(--page-scale)) calc(8px * var(--page-scale)); display: flex; align-items: center; font-size: calc(24px * var(--page-scale)); line-height: 1.29166667; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+.header-close { position: absolute; right: 0; top: 0; width: calc(524px * var(--page-scale)); height: 100%; padding: 0 calc(8px * var(--page-scale)); display: flex; align-items: center; justify-content: flex-end; background: #fff; color: #000; text-decoration: none; font-size: calc(48px * var(--page-scale)); font-weight: 600; line-height: 1.29166667; text-transform: uppercase; cursor: pointer; }
 .header-close:focus-visible { outline: 2px solid #000; outline-offset: -2px; }
 .work-title { position: absolute; left: 0; top: 782px; width: 1440px; height: 37px; background: #fff; color: #000; display: flex; align-items: center; padding: 4px 8px; z-index: 2; }
 .work-title h1 { margin: 0; padding: 0; width: 1162px; height: 31px; color: #000; font: 600 24px/31px 'Geist Mono', monospace; text-transform: uppercase; white-space: nowrap; }
