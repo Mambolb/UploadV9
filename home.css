@@ -1,12 +1,12 @@
-/* Portfolio V9 — Figma CodeExport_ProtV8.2.rtf geometry; cursor-following previews instead of wallpaper.
-   Base geometry 1440x1024; columns 524/261/262/262/131; row 28;
-   top bar y=4 h=35; Geist Mono 24/31 semibold; index 12/16 regular.
-   Scroll: category/medium/context/year stay pinned; project names use a
-   damped spring after the native page scroll. No external scrolling library. */
+/* Portfolio V9.5 — native responsive layout (no whole-page scaling).
+   At 1440px: the grid reproduces Figma's 524/261/262/262/131px columns.
+   At other widths: only columns change width; 12px/16px index typography,
+   24px/31px header and 28px rows remain in CSS px like the C2F reference.
+   The spring-driven project-name track and cursor previews remain intact. */
 :root{
  --row-height:28px; --header-height:28px;
- --col-name:524px; --col-category:261px; --col-medium:262px;
- --col-context:262px; --col-year:131px;
+ --col-name:36.38888889%; --col-category:18.125%; --col-medium:18.19444444%;
+ --col-context:18.19444444%; --col-year:9.09722223%;
  --cursor-preview-width:320px; --cursor-preview-max-height:240px;
 }
 *{box-sizing:border-box}
@@ -15,31 +15,27 @@ html{scroll-behavior:auto}
 body{overflow-x:hidden}
 .home-viewport{position:relative;width:100%;background:#000}
 .home-sticky{position:sticky;top:0;left:0;width:100%;z-index:0}
-.home-canvas{position:absolute;left:0;top:0;width:1440px;min-height:1024px;
- isolation:isolate;overflow:hidden;transform-origin:top left;background:#000;color:#fff;
+.home-canvas{position:relative;left:0;top:0;width:100%;min-height:1024px;
+ isolation:isolate;overflow:hidden;background:#000;color:#fff;
  font:400 12px/16px 'Geist Mono','Courier New',monospace;text-transform:uppercase}
 /* Figma top: 4px black gutter then white bar with 35px high cells. */
-.top-header{position:absolute;top:4px;left:0;width:1440px;height:35px;z-index:3;
+.top-header{position:absolute;top:4px;left:0;width:100%;height:35px;z-index:3;
  background:#fff;color:#000;font:500 24px/31px 'Geist Mono','Courier New',monospace}
 .header-brand,.header-item{height:35px;padding:4px 8px;display:flex;align-items:center;
  border:0;border-radius:0;background:transparent;color:#000;
  text-decoration:none;white-space:nowrap;font:inherit}
-.header-brand{position:absolute;left:0;top:0;width:524px}
-.header-nav{position:absolute;right:0;top:0;width:521px;height:35px;
+.header-brand{position:absolute;left:0;top:0;width:var(--col-name)}
+.header-nav{position:absolute;right:0;top:0;width:auto;height:35px;
  display:flex;align-items:center;justify-content:flex-end;gap:20px}
 .header-item{position:relative;cursor:pointer}
 .header-about{cursor:pointer}
 .header-mail:hover,.header-mail:focus-visible,
-.header-instagram:hover,.header-instagram:focus-visible{color:#ff0000;background:#fff;outline:none}
+.header-instagram:hover,.header-instagram:focus-visible{color:#00ff15;background:#fff;outline:none}
 .header-about:hover,.header-about:focus-visible{color:#00ff15;background:#fff;outline:none}
-.archive{position:absolute;top:39px;left:0;z-index:2;display:flex;align-items:flex-start;
- width:1440px;min-height:985px;outline:none}
-.column{position:relative;flex:none;min-height:985px}
-.column[data-field=name]{width:var(--col-name)}
-.column[data-field=category]{width:var(--col-category)}
-.column[data-field=medium]{width:var(--col-medium)}
-.column[data-field=context]{width:var(--col-context)}
-.column[data-field=year]{width:var(--col-year)}
+.archive{position:absolute;top:39px;left:0;z-index:2;display:grid;align-items:start;
+ grid-template-columns:var(--col-name) var(--col-category) var(--col-medium) var(--col-context) var(--col-year);
+ width:100%;min-height:985px;outline:none}
+.column{position:relative;width:100%;min-width:0;min-height:985px}
 /* The name track is translated independently, its INDEX sort header stays fixed. */
 .name-track{position:absolute;top:0;left:0;width:100%;height:100%;will-change:transform;
  transform:translate3d(0,0,0);pointer-events:none}
@@ -57,7 +53,7 @@ body{overflow-x:hidden}
 .sort-arrow{display:inline-block;margin-left:7px;flex:none;font:inherit}
 @media (prefers-reduced-motion:reduce){.name-track{will-change:auto}}
 
-/* Floating preview is outside the 1440px scaled Figma canvas. Its dimensions
+/* Floating preview is outside the responsive grid. Its dimensions
    stay in viewport CSS pixels, like the Bauhaus Typography hover thumbnails.
    This element never blocks links or the archive's pointer events. */
 .cursor-preview{
@@ -78,4 +74,13 @@ body{overflow-x:hidden}
 @media(hover:none),(pointer:coarse){.cursor-preview{display:none!important}}
 @media(prefers-reduced-motion:reduce){.cursor-preview{transition:none;will-change:auto}}
 
-/* 9.4: V2HEADtext medium weight, no strokes, 4px top gutter unchanged. */
+/* 9.5: V2HEADtext medium weight, no strokes, 4px top gutter unchanged. */
+
+/* V9.5: no viewport-wide transform. Keep type constant across laptop/monitor. */
+@media(max-width:900px){
+  .top-header{font-size:clamp(13px,2.4vw,24px)}
+  .header-nav{gap:clamp(4px,1vw,20px)}
+  .header-brand,.header-item{padding-left:4px;padding-right:4px}
+  .archive{grid-template-columns:34% 18% 18% 19% 11%}
+  .cell{padding-left:4px;padding-right:4px;font-size:clamp(9px,1.15vw,12px)}
+}

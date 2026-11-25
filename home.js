@@ -30,7 +30,6 @@ const REDUCED=matchMedia('(prefers-reduced-motion: reduce)');
 let ordered=projects.slice();
 let sortKey='year',ascending=false,activeId=null,activeRow=-1;
 let track=null,trackPos=0,trackVelocity=0,targetPos=0,raf=0;
-let scale=1;
 let previewId=null,previewActive=false,previewX=0,previewY=0;
 let pointerX=0,pointerY=0,targetX=0,targetY=0,previewRAF=0;
 function previewPosition(){
@@ -112,8 +111,11 @@ function render(){
   const col=make('div','column');col.dataset.field=field;
   const title=make('button','cell is-header');title.type='button';title.style.top='0px';title.style.height=HEADER+'px';
   title.append(document.createTextNode(labels[field]));
-  const arrow=make('span','sort-arrow',field===sortKey?(ascending?'↑':'↓'):'↓');
-  arrow.setAttribute('aria-hidden','true');title.append(arrow);
+  // The current Figma design only shows an arrow after YEAR.
+  if(field==='year'){
+   const arrow=make('span','sort-arrow',sortKey==='year'&&ascending?'↑':'↓');
+   arrow.setAttribute('aria-hidden','true');title.append(arrow);
+  }
   title.setAttribute('aria-label','Sort by '+field);title.setAttribute('aria-pressed',String(field===sortKey));
   title.addEventListener('click',()=>sortBy(field));col.append(title);
   if(field==='name'){
@@ -168,7 +170,7 @@ function indexFromPointer(e){
  const anchor=e.target.closest('.row-name');
  if(anchor)return Number(anchor.dataset.index);
  const rect=archive.getBoundingClientRect();
- const y=(e.clientY-rect.top)/scale;
+ const y=e.clientY-rect.top;
  if(y<HEADER)return -1;
  return Math.floor((y-HEADER)/ROW);
 }
@@ -206,19 +208,16 @@ function animate(){
 function updateScroll(){
  // Current stage starts at document top. Clamp its total progress to its scroll travel.
  const top=viewport.getBoundingClientRect().top+window.scrollY;
- const progress=Math.min(1,Math.max(0,(window.scrollY-top)/(SCROLL_DISTANCE*scale)));
+ const progress=Math.min(1,Math.max(0,(window.scrollY-top)/SCROLL_DISTANCE));
  targetPos=NAME_TRAVEL*progress;
  if(REDUCED.matches){trackPos=targetPos;trackVelocity=0;setTrack(trackPos);return;}
  if(!raf)raf=requestAnimationFrame(animate);
 }
 function resize(){
- const availableWidth=document.documentElement.clientWidth||innerWidth;
- scale=availableWidth/1440;
- const contentHeight=Math.max(BASE_HEIGHT,39+HEADER+ROW*ordered.length);
- canvas.style.transform='scale('+scale+')';
- viewport.style.width=availableWidth+'px';
- stage.style.height=Math.ceil(contentHeight*scale)+'px';
- viewport.style.height=Math.ceil((contentHeight+SCROLL_DISTANCE)*scale)+'px';
+ const contentHeight=Math.max(BASE_HEIGHT,39+HEADER+ROW*ordered.length,window.innerHeight);
+ canvas.style.minHeight=contentHeight+'px';
+ stage.style.height=contentHeight+'px';
+ viewport.style.height=(contentHeight+SCROLL_DISTANCE)+'px';
  updateScroll();
 }
 addEventListener('scroll',()=>{clear();updateScroll();},{passive:true});
