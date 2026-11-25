@@ -1,7 +1,5 @@
-/* Portfolio V9.6 — viewport-aware project layout with native-size type.
-   Figma reference at 1440px is preserved. Media widths adapt horizontally;
-   24px heading, 12px descriptions, 35px header, 220px IRL images do not scale.
-   No browser transform scale() of entire artboard. */
+/* Portfolio V9.7 — C2F-style centered 75vw project media.
+   Sticky header and title stay full-width. Fonts and IRL thumbnails stay CSS-sized. */
 :root{color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:#000;color:#fff}
@@ -23,10 +21,11 @@ body{overflow-x:hidden}
 .description p{margin:0;padding:0;width:100%;color:inherit;font:400 12px/16px 'Geist Mono',monospace;white-space:pre-line;overflow-wrap:break-word}
 .description a{color:inherit;text-decoration:none}
 .description a:hover,.description a:focus-visible{text-decoration:underline;text-underline-offset:2px}
+.project-hero-stage,.project-documents-stage{position:absolute;left:50%;transform:translateX(-50%);overflow:hidden;background:#000;z-index:1}
 .project-photo{position:absolute;margin:0;padding:0;overflow:hidden;z-index:1;background:#000}
 .project-photo img,.project-photo video{width:100%;height:100%;display:block;object-fit:cover;object-position:center;border:0;max-width:none}
 .project-photo video{cursor:pointer}
-/* Calibrated crop of the tall 005 source against the 1x Figma hero composition. */
+/* Calibrated horizontal crop of the tall 005 source, relative to centered stage. */
 body[data-project='shahed'] .project-photo.is-hero img{object-position:center 30.13%;transform:translateX(calc(-278px * var(--media-scale)))}
 /* Design hero has the book image centered on a neutral grey field in Figma. */
 body[data-project='design-as-epistemic'] .project-photo.is-hero{background:#d7d8d5}
