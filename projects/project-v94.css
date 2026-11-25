@@ -52,3 +52,23 @@ body[data-project='design-as-epistemic'] .project-photo.is-hero{background:#d7d8
 @media(max-width:700px){.irl-gallery{width:min(460px, calc(100% - 24px))}}
 @media(max-width:460px){.irl-gallery{width:min(220px, calc(100% - 24px))}}
 
+
+/* V9.9: desktop intro follows the original 1440px frame uniformly. */
+body:not([data-project='irl-glitch']) .project-wrap{--figma-scale:1;--s4:4px;--s8:calc(8px * var(--figma-scale));--s24:calc(24px * var(--figma-scale));--s31:calc(31px * var(--figma-scale));--s35:calc(35px * var(--figma-scale));--s39:calc(4px + var(--s35));--s48:calc(48px * var(--figma-scale));--s62:calc(62px * var(--figma-scale));--s508:calc(508px * var(--figma-scale));--s524:calc(524px * var(--figma-scale));--sn17:calc(-17px * var(--figma-scale));}
+body:not([data-project='irl-glitch']) .header-name{font-size:var(--s24);max-width:calc(100% - 55px)}
+body:not([data-project='irl-glitch']) .header-close{width:max(40px,var(--s524))}
+body:not([data-project='irl-glitch']) .header-close-mark{left:auto;right:var(--s8);width:auto}
+body:not([data-project='irl-glitch']) .work-title{height:calc(37px * var(--figma-scale));min-height:0;padding:0 var(--s8)}
+body:not([data-project='irl-glitch']) .work-title h1{font-size:var(--s24);line-height:var(--s31);white-space:nowrap}
+body:not([data-project='irl-glitch']) .description{left:var(--s8);width:min(calc(646px * var(--figma-scale)),calc(100% - 2 * var(--s8)));padding:calc(4px * var(--figma-scale)) 0}
+body:not([data-project='irl-glitch']) .description p{font-size:calc(12px * var(--figma-scale));line-height:calc(16px * var(--figma-scale))}
+.project-hero-stage{overflow:hidden}
+.project-hero-stage .project-photo{overflow:hidden}
+.project-hero-stage .project-photo img,.project-hero-stage .project-photo video{object-fit:cover}
+.project-photo.is-documentation img,.project-photo.is-documentation video{object-fit:contain}
+/* Narrow-screen readability fallback; not a separate Figma mobile design. */
+.project-wrap.is-compact .work-title{height:auto;min-height:30px;padding:4px 8px}
+.project-wrap.is-compact .work-title h1{font-size:14px;line-height:1.2;white-space:normal}
+.project-wrap.is-compact .description{left:8px;width:min(646px,calc(100% - 16px))}
+.project-wrap.is-compact .description p{font-size:12px;line-height:16px}
+body:not([data-project='irl-glitch']) .project-wrap.is-compact{--s24:14px;--s31:20px;--s35:27px;--s48:32px;--s62:40px;--sn17:-9px;--s8:8px}
